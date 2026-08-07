@@ -23,7 +23,7 @@ export function SiteHeader() {
           <span className="flex size-9 items-center justify-center rounded-full border-[3px] border-foreground bg-primary text-primary-foreground">
             <DoodleStar className="size-5" />
           </span>
-          <span className="text-xl font-bold tracking-tight">Need Support</span>
+          <span className="text-xl font-bold tracking-tight">Help Animation to Thrive</span>
         </a>
 
         <nav aria-label="Primary" className="flex items-center gap-7">

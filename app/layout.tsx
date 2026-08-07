@@ -16,9 +16,9 @@ const gochiHand = Gochi_Hand({
 })
 
 export const metadata: Metadata = {
-  title: 'Sprout Together — Help Kids Learn & Grow',
+  title: 'Help animation to thrive',
   description:
-    'Join our doodle-powered fundraiser to give every kid the books, art supplies, and warm meals they need to thrive.',
+    'It is a personal fundrasing project to support my animator endeavour',
   generator: 'v0.app',
   icons: {
     icon: [
