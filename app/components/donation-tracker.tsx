@@ -8,6 +8,7 @@ interface DonationTrackerProps {
 }
 
 export function DonationTracker({ raised, goal }: DonationTrackerProps) {
+  
   return (
     <div className="space-y-10">
       <ProgressSection raised={raised} goal={goal} />
