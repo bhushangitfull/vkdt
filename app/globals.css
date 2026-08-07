@@ -1,0 +1,215 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sky: var(--sky);
+  --color-sky-foreground: var(--sky-foreground);
+  --color-grass: var(--grass);
+  --color-grass-foreground: var(--grass-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --font-sans: var(--font-fredoka), ui-sans-serif, system-ui;
+  --font-hand: var(--font-gochi), cursive;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+:root {
+  scroll-behavior: smooth;
+  color-scheme: light;
+  --background: oklch(0.98 0.02 90);
+  --foreground: oklch(0.28 0.02 60);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.28 0.02 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.28 0.02 60);
+  --primary: oklch(0.68 0.19 32);
+  --primary-foreground: oklch(0.99 0.01 90);
+  --secondary: oklch(0.87 0.16 90);
+  --secondary-foreground: oklch(0.28 0.02 60);
+  --muted: oklch(0.95 0.02 90);
+  --muted-foreground: oklch(0.5 0.02 60);
+  --accent: oklch(0.87 0.16 90);
+  --accent-foreground: oklch(0.28 0.02 60);
+  --destructive: oklch(0.6 0.24 27);
+  --border: oklch(0.28 0.02 60);
+  --input: oklch(0.28 0.02 60);
+  --ring: oklch(0.68 0.19 32);
+  --sky: oklch(0.74 0.12 230);
+  --sky-foreground: oklch(0.28 0.02 60);
+  --grass: oklch(0.73 0.15 160);
+  --grass-foreground: oklch(0.28 0.02 60);
+  --chart-1: oklch(0.68 0.19 32);
+  --chart-2: oklch(0.87 0.16 90);
+  --chart-3: oklch(0.74 0.12 230);
+  --chart-4: oklch(0.73 0.15 160);
+  --chart-5: oklch(0.5 0.02 60);
+  --radius: 1rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .thermometer {
+    width: 60px;
+    height: 420px;
+    min-height: 420px;
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 35%, rgba(255,255,255,0.64) 100%);
+    border: 6px solid hsl(0 0% 18% / 0.85);
+    border-radius: 999px;
+    box-shadow: inset 0 0 24px rgba(0,0,0,0.1), 0 6px 0 0 rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .thermometer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.55);
+    pointer-events: none;
+  }
+
+  .thermometer-bulb {
+    position: absolute;
+    bottom: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 84px;
+    height: 84px;
+    background: radial-gradient(circle at 35% 30%, #f87171, #dc2626);
+    border: 6px solid hsl(0 0% 18% / 0.85);
+    border-radius: 999px;
+    box-shadow: 0 12px 0 -3px rgba(0,0,0,0.15);
+  }
+
+  .mercury {
+    position: relative;
+    background: linear-gradient(180deg, #fb923c 0%, #ef4444 40%, #b91c1c 100%);
+    border-radius: 999px 999px 32px 32px;
+    transform-origin: bottom center;
+    min-height: 20px;
+    transition: height 1.2s ease-out, box-shadow 1.2s ease-out;
+    will-change: height, transform;
+    box-shadow: inset 0 0 18px rgba(251,146,60,0.24), 0 0 24px rgba(239,68,68,0.2);
+    animation: pulseMercury 2.2s ease-in-out infinite;
+  }
+
+  .mercury::after {
+    content: "";
+    position: absolute;
+    top: 8%;
+    left: 14%;
+    width: 60%;
+    height: 22%;
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    filter: blur(2px);
+    pointer-events: none;
+  }
+
+  .thermometer-broken .mercury {
+    animation: pulseMercury 0.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 18px rgba(239,68,68,0.5));
+  }
+
+  .crack-line {
+    position: absolute;
+    width: 2px;
+    height: 72px;
+    background: linear-gradient(180deg, rgba(65, 63, 64, 0), rgba(65, 63, 64, 1), rgba(65, 63, 64, 0));
+    opacity: 0;
+    animation: crackReveal 0.4s ease-out forwards;
+  }
+
+  .crack-line-1 {
+    left: 24px;
+    top: 24px;
+    transform: rotate(28deg);
+    animation-delay: 0.05s;
+  }
+
+  .crack-line-2 {
+    left: 42px;
+    top: 40px;
+    transform: rotate(-15deg);
+    animation-delay: 0.12s;
+  }
+
+  .crack-line-3 {
+    left: 56px;
+    top: 16px;
+    transform: rotate(40deg);
+    animation-delay: 0.2s;
+  }
+
+  .thermometer-broken {
+    animation: shakeThermometer 0.45s ease-in-out infinite;
+  }
+
+  @keyframes pulseMercury {
+    0%, 100% {
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(1.03);
+    }
+  }
+
+  @keyframes crackReveal {
+    from {
+      opacity: 0;
+      transform: scaleY(0.7) translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: scaleY(1) translateY(0);
+    }
+  }
+
+  @keyframes shakeThermometer {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-2px) rotate(-1deg); }
+    20% { transform: translateX(2px) rotate(1deg); }
+    30% { transform: translateX(-1px) rotate(-0.5deg); }
+    40% { transform: translateX(1px) rotate(0.5deg); }
+  }
+}
