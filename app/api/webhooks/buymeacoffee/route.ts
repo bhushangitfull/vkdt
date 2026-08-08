@@ -5,8 +5,13 @@ import { NextRequest, NextResponse } from "next/server";
 const redis = Redis.fromEnv();
 
 function verifySignature(rawBody: string, signature: string, secret: string) {
+  if (!secret || !signature) return false;
   const expected = crypto.createHmac("sha256", secret).update(rawBody).digest("hex");
-  return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+  // return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+  const expectedBuf = Buffer.from(expected);
+   const signatureBuf = Buffer.from(signature);
+   if (expectedBuf.length !== signatureBuf.length) return false;
+  return crypto.timingSafeEqual(expectedBuf, signatureBuf);
 }
 
 export async function POST(req: NextRequest) {
