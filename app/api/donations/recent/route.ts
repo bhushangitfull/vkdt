@@ -2,6 +2,9 @@ import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 
 const redis = Redis.fromEnv();
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 
 export async function GET() {
   const raw = await redis.lrange("donation_log", 0, 19);

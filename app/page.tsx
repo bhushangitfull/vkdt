@@ -7,7 +7,7 @@ import { HowItHelps } from "./components/how-it-helps"
 import { MyStory } from "./components/my-story"
 
 export default function Page() {
-  const [raised, setRaised] = useState(0)
+  const [raised, setRaised] = useState(150)
   const goal = 300
 
   useEffect(() => {
