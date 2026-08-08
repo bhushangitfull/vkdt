@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 const formatMoney = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 })
@@ -11,9 +11,23 @@ export function ProgressSection({ raised, goal }: { raised: number; goal: number
   const displayHeight = raised > 0 ? Math.max(fillPercent, 8) : 0
   const reachedGoal = raised >= goal
   const [animHeight, setAnimHeight] = useState(0)
+  const hasIntroPlayed = useRef(false)
 
   useEffect(() => {
-    requestAnimationFrame(() => setAnimHeight(displayHeight))
+    if (!hasIntroPlayed.current) {
+      hasIntroPlayed.current = true
+      const riseUp = setTimeout(() => setAnimHeight(65), 150)
+      const dipDown = setTimeout(() => setAnimHeight(15), 900)
+      const settle = setTimeout(() => setAnimHeight(displayHeight), 1500)
+      return () => {
+        clearTimeout(riseUp)
+        clearTimeout(dipDown)
+        clearTimeout(settle)
+      }
+    } else {
+      // Every later change (a real donation coming in) animates normally
+      requestAnimationFrame(() => setAnimHeight(displayHeight))
+    }
   }, [displayHeight])
 
   const milestoneValues = [300, 200, 100]
