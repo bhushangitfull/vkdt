@@ -16,7 +16,7 @@ export function ProgressSection({ raised, goal }: { raised: number; goal: number
   useEffect(() => {
     if (!hasIntroPlayed.current) {
       hasIntroPlayed.current = true
-      const riseUp = setTimeout(() => setAnimHeight(65), 150)
+      const riseUp = setTimeout(() => setAnimHeight(65), 1500)
       const dipDown = setTimeout(() => setAnimHeight(15), 900)
       const settle = setTimeout(() => setAnimHeight(displayHeight), 1500)
       return () => {
