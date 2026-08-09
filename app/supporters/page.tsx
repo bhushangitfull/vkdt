@@ -9,13 +9,17 @@ type Supporter = {
   amount: number
   name: string
   message: string
-  at: string
+  at: string | number
 }
 
 async function getSupporters() {
   const raw = await redis.lrange("donation_log", 0, 99)
   return raw.map((item) => {
-    const supporter = JSON.parse(item as string) as Supporter
+    const supporter =
+      typeof item === "string"
+        ? (JSON.parse(item) as Supporter)
+        : (item as Supporter)
+
     return {
       amount: Number(supporter.amount ?? 0),
       name: supporter.name ?? "Anonymous",
@@ -25,8 +29,20 @@ async function getSupporters() {
   })
 }
 
-function formatDate(dateString: string) {
-  const date = new Date(dateString)
+function formatDate(dateValue: string | number) {
+  if (dateValue === undefined || dateValue === null || dateValue === "") {
+    return ""
+  }
+
+  const rawValue = typeof dateValue === "number" ? dateValue : dateValue.trim()
+  const numericTimestamp = typeof rawValue === "number" ? rawValue : Number(rawValue)
+
+  const date = Number.isNaN(numericTimestamp)
+    ? new Date(rawValue)
+    : new Date(
+        rawValue.toString().length === 10 ? numericTimestamp * 1000 : numericTimestamp,
+      )
+
   if (Number.isNaN(date.getTime())) return ""
   return date.toLocaleDateString(undefined, {
     month: "short",
