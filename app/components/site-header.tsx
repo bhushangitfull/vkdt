@@ -7,11 +7,14 @@ import { DoodleStar } from "./doodles"
 const navLinks = [
   { label: "My Story", href: "#story" },
   { label: "How It Helps", href: "#help" },
+  { label: "Supporters", href: "/supporters" },
 ]
 
-function handleNavClick(event: MouseEvent<HTMLAnchorElement>, id: string) {
+function handleNavClick(event: MouseEvent<HTMLAnchorElement>, href: string) {
+  if (!href.startsWith("#")) return
+
   event.preventDefault()
-  const target = document.getElementById(id)
+  const target = document.getElementById(href.slice(1))
   target?.scrollIntoView({ behavior: "smooth", block: "start" })
 }
 
