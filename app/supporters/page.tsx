@@ -71,7 +71,7 @@ export default async function SupportersPage() {
               Supporters
             </p>
             <h1 className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              Thank you to everyone who made this possible.
+              Thank you for Helping Animation Thrive.
             </h1>
             <p className="mt-4 max-w-2xl text-base text-foreground/70 sm:text-lg">
               Here are the latest donations and messages from your supporters.
